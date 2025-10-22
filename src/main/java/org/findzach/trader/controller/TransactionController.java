@@ -1,9 +1,7 @@
 package org.findzach.trader.controller;
 
-import org.findzach.trader.model.Member;
 import org.findzach.trader.model.Transaction;
 import org.findzach.trader.service.disclosure.DisclosureService;
-import org.findzach.trader.service.member.MemberService;
 import org.findzach.trader.service.transaction.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,13 +16,13 @@ import java.util.List;
  * @since 10/22/2025 4:08 AM
  */
 @Controller
-public class StatsController {
+public class TransactionController {
 
     private final DisclosureService disclosureService;
     private final TransactionService transactionService;
 
     @Autowired
-    public StatsController(DisclosureService disclosureService, TransactionService transactionService) {
+    public TransactionController(DisclosureService disclosureService, TransactionService transactionService) {
         this.disclosureService = disclosureService;
         this.transactionService = transactionService;
     }
