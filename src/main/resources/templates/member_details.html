@@ -18,12 +18,49 @@
 
 <div class="container">
     <!-- Member Details -->
-    <h1 th:text="${member.getFirstName()} + ' ' + ${member.getLastName()}"></h1>
-    <p th:text="'State/District: ' + ${member.getStateDistrict()}"></p>
+    <h1 th:text="${member.getMemberDetails()}"></h1>
+
+    <!-- Table for Transactions -->
+    <h2>Transaction Details</h2>
+    <table id="transactionsTable" class="display" style="width:100%">
+        <thead>
+        <tr>
+            <th>Congress member</th>
+            <th>Asset Ticker</th>
+            <th>Amount Range</th>
+            <th>Transaction Type</th>
+            <th>Transaction Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="transaction : ${transactions}">
+            <!-- Member Details -->
+            <td>
+                <!-- Hyperlink to members/{id} -->
+                <a th:href="@{/members/{id}(id=${transaction.getDisclosure().getMember().getId()})}"
+                   th:text="${transaction.getDisclosure().getMember().getMemberDetails()}"></a>
+            </td>
+            <!-- Conditional Ticker Content -->
+            <td>
+                <!-- If Ticker is NOT "N/A", show hyperlink -->
+                <a th:if="${transaction.getTicker()} != 'N/A'"
+                   th:href="@{/transactions/ticker/{ticker}(ticker=${transaction.getTicker()})}"
+                   th:text="${transaction.getTicker()}"></a>
+
+                <!-- If Ticker is "N/A", show plain text -->
+                <span th:if="${transaction.getTicker()} == 'N/A'"
+                      th:text="${transaction.getTicker()}"></span>
+            </td>
+            <td th:text="${transaction.getAmountRange()}"></td>
+            <td th:text="${transaction.getTransactionType()}"></td>
+            <td th:text="${#dates.format(transaction.getTransactionDate(), 'MM/dd/yyyy')}"></td>
+        </tr>
+        </tbody>
+    </table>
 
     <!-- Disclosure Table -->
     <h2>Disclosures</h2>
-    <table border="1" id="membersDetails">
+    <table border="1" id="membersDetails" style="margin-top: 10%">
         <thead>
         <tr>
             <th>ID</th>
@@ -53,6 +90,7 @@
 </div>
 <script>
     let table = new DataTable('#membersDetails');
+    let transactionTable = new DataTable('#transactionsTable');
 </script>
 </body>
 </html>

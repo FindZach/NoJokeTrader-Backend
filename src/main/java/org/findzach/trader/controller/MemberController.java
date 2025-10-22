@@ -53,9 +53,12 @@ public class MemberController {
             Member selectedMember = memberOptional.get();
 
             List<Disclosure> disclosures = disclosureService.findByMember_Id(selectedMember.getId());
+            List<Long> disclosureIds = disclosures.stream()
+                    .map(Disclosure::getId).toList();
 
             model.addAttribute("member", selectedMember);
             model.addAttribute("disclosures", disclosures);
+            model.addAttribute("transactions", transactionService.findByDisclosure_IdIn(disclosureIds));
         } else {
             model.addAttribute("error", "No found member with ID " + id);
         }
