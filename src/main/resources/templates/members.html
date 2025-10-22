@@ -22,20 +22,17 @@
     <table border="1" id="membersTable">
         <thead>
         <tr>
-            <th>ID</th>
             <th>Name</th>
-            <th>State/District</th>
-            <th>Details</th>
+            <th>Total Stock Transactions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="member : ${members}">
-            <td th:text="${member.id}"></td>
-            <td th:text="${member.firstName} + ' ' + ${member.lastName}"></td>
-            <td th:text="${member.stateDistrict}"></td>
             <td>
-                <a th:href="@{/members/{id}(id=${member.id})}">View Details</a>
+                <a th:href="@{/members/{id}(id=${member.getId()})}"
+                   th:text="${member.getMemberDetails()}"></a>
             </td>
+            <td th:text="${member.getTotalTransactions()}"></td>
         </tr>
         </tbody>
     </table>

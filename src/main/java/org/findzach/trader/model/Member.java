@@ -112,6 +112,13 @@ public class Member {
         return firstName + " " + lastName + " (" + stateDistrict+")";
     }
 
+    @Transient
+    public int getTotalTransactions() {
+        return disclosures != null ? disclosures.stream()
+                .mapToInt(d -> d.getTransactions() != null ? d.getTransactions().size() : 0)
+                .sum() : 0;
+    }
+
     @Override
     public String toString() {
         return "Member{" +
