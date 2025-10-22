@@ -26,22 +26,28 @@
             <thead>
             <tr>
                 <th>Asset</th>
+                <th>Name</th>
                 <th>Type</th>
                 <th>Amount Range</th>
                 <th>Transaction Date</th>
                 <th>Notification Date</th>
-                <th>Owner</th>
                 <th>Comments</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="transaction : ${transactions}">
                 <td th:text="${transaction.asset}">[Asset]</td>
+
+                <td>
+                    <!-- Hyperlink to members/{id} -->
+                    <a th:href="@{/members/{id}(id=${transaction.disclosure.getMember().getId()})}"
+                       th:text="${transaction.disclosure.getMember().getMemberDetails()}"></a>
+                </td>
+
                 <td th:text="${transaction.transactionType}">[Type]</td>
                 <td th:text="${transaction.amountRange}">[Amount Range]</td>
                 <td th:text="${#dates.format(transaction.transactionDate, 'MM/dd/yyyy')}">[Transaction Date]</td>
                 <td th:text="${#dates.format(transaction.notificationDate, 'MM/dd/yyyy')}">[Notification Date]</td>
-                <td th:text="${transaction.owner}">[Owner]</td>
                 <td th:text="${transaction.comments}">[Comments]</td>
             </tr>
             </tbody>
