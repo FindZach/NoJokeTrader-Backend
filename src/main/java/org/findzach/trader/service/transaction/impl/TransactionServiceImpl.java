@@ -43,7 +43,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Iterable<Transaction> findAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override
@@ -53,7 +53,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public long count() {
-        return 0;
+        return repository.count();
     }
 
     @Override
@@ -89,5 +89,10 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<Transaction> findByDisclosure_Id(Long disclosureId) {
         return repository.findByDisclosure_Id(disclosureId);
+    }
+
+    @Override
+    public List<Transaction> findByTicker(String ticker) {
+        return repository.findByTicker(ticker);
     }
 }

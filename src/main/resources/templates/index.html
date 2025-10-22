@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NoJokeTrader Home Page</title>
+  <!-- Import CSS -->
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    /* Styles for Splash Page */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(to bottom, #003366, #4CAF50);
+      color: white;
+      height: 100vh; /* Full-screen height */
+      padding: 20px;
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .hero p {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .hero .cta-button {
+      display: inline-block;
+      padding: 15px 30px;
+      background-color: #f8c206;
+      color: #003366;
+      font-size: 1.2em;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 20px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .hero .cta-button:hover {
+      background-color: #ffc800;
+      color: #222;
+    }
+
+    /* About Section */
+    .about {
+      padding: 50px 20px;
+      text-align: center;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    .about h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    .about p {
+      font-size: 1.2em;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    .about .features {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .features .feature {
+      width: 300px;
+      background: #fff;
+      padding: 20px;
+      margin: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .feature h3 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      color: #003366;
+    }
+
+    .feature p {
+      font-size: 1em;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+<!-- Navbar -->
+<div th:insert="~{fragments/navbar :: navbar}"></div>
+
+<!-- Hero Section -->
+<div class="hero">
+  <h1>Welcome to NoJokeTrader</h1>
+  <p>Transparency in Congressional trading like never before. Use this app to explore stock purchases made by members of Congress.</p>
+  <a href="/transactions" th:href="@{/transactions}" class="cta-button">Get Started</a>
+</div>
+
+<!-- About Section -->
+<div class="about">
+  <h2>What is NoJokeTrader?</h2>
+  <p>NoJokeTrader is a powerful platform that tracks and provides insights into stock transactions made by U.S. Congress members. Empower yourself with data to analyze trends, review tickers, and understand what our lawmakers are trading.</p>
+
+  <div class="features">
+    <!-- Feature 1 -->
+    <div class="feature">
+      <h3>Transparency at Your Fingertips</h3>
+      <p>Gain easy access to transaction details, tickers, and the amounts being traded by your elected officials.</p>
+    </div>
+
+    <!-- Feature 2 -->
+    <div class="feature">
+      <h3>Track Historical Trades</h3>
+      <p>Review purchase and sale patterns over time for members of Congress.</p>
+    </div>
+
+    <!-- Feature 3 -->
+    <div class="feature">
+      <h3>Analyze Popular Trends</h3>
+      <p>Identify frequently traded stocks, sectors, and industries with our insightful charts.</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

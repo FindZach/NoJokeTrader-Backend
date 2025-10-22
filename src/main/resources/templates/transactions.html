@@ -6,27 +6,12 @@
   <title>Transactions Overview</title>
   <!-- Import CSS -->
   <link rel="stylesheet" href="/css/styles.css">
-
-  <style>
-    .container {
-      width: 90%;
-      margin: 0 auto;
-      font-family: Arial, sans-serif;
-    }
-    h1, h2 {
-      text-align: center;
-    }
-  </style>
 </head>
 <body>
-<div class="container">
 
-  <!-- Disclosure Header Information -->
-  <h1>Transactions Overview for Disclosure: <span th:text="${disclosure.getId()}"></span></h1>
-  <p>
-    <strong>Filing Type:</strong> <span th:text="${disclosure.getFilingType()}"></span><br/>
-    <strong>Filing Date:</strong> <span th:text="${disclosure.getFilingDate()}"></span>
-  </p>
+<div th:insert="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
 
   <!-- Table for Transactions -->
   <h2>Transaction Details</h2>
@@ -43,7 +28,17 @@
     <tbody>
     <tr th:each="transaction : ${transactions}">
       <td th:text="${transaction.getId()}"></td>
-      <td th:text="${transaction.getAsset()}"></td>
+      <!-- Conditional Ticker Content -->
+      <td>
+        <!-- If Ticker is NOT "N/A", show hyperlink -->
+        <a th:if="${transaction.getTicker()} != 'N/A'"
+           th:href="@{/transactions/ticker/{ticker}(ticker=${transaction.getTicker()})}"
+           th:text="${transaction.getTicker()}"></a>
+
+        <!-- If Ticker is "N/A", show plain text -->
+        <span th:if="${transaction.getTicker()} == 'N/A'"
+              th:text="${transaction.getTicker()}"></span>
+      </td>
       <td th:text="${transaction.getAmountRange()}"></td>
       <td th:text="${transaction.getTransactionType()}"></td>
       <td th:text="${#dates.format(transaction.getTransactionDate(), 'MM/dd/yyyy')}"></td>

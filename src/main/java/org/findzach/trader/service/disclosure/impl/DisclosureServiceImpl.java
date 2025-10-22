@@ -53,7 +53,7 @@ public class DisclosureServiceImpl implements DisclosureService {
 
     @Override
     public long count() {
-        return 0;
+        return repository.count();
     }
 
     @Override

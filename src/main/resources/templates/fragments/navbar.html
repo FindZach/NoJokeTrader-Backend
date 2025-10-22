@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+</head>
+<body>
+<!-- Fragment Block -->
+<div class="navbar" th:fragment="navbar">
+    <!-- Logo or Website Name -->
+    <a href="/" class="logo">NoJokeTrader</a>
+
+    <!-- Navbar Links -->
+    <div class="navbar-links" id="navbarLinks">
+        <a href="/" th:href="@{/}">Home</a>
+        <a href="/members" th:href="@{/members}">Members</a>
+        <a href="/disclosures" th:href="@{/disclosures}">Disclosures</a>
+        <a href="/transactions" th:href="@{/transactions}">Transactions</a>
+    </div>
+
+    <!-- Hamburger Icon for Small Screens -->
+    <span class="icon" onclick="toggleNavbar()">&#9776;</span>
+</div>
+
+<script>
+    // Function to toggle the navbar menu on small screens
+    function toggleNavbar() {
+        var navbarLinks = document.getElementById("navbarLinks");
+        if (navbarLinks.classList.contains("show")) {
+            navbarLinks.classList.remove("show");
+        } else {
+            navbarLinks.classList.add("show");
+        }
+    }
+</script>
+</body>
+</html>

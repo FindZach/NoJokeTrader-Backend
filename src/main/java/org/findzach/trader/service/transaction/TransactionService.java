@@ -13,4 +13,5 @@ public interface TransactionService extends CrudRepository<Transaction, Long> {
 
     List<Transaction> findByDisclosure_IdIn(List<Long> disclosureIds);
     List<Transaction> findByDisclosure_Id(Long disclosureId);
+    List<Transaction> findByTicker(String ticker);
 }
