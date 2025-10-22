@@ -107,4 +107,21 @@ public class Member {
         disclosures.add(disclosure);
         disclosure.setMember(this);
     }
+
+    public String getMemberDetails() {
+        return firstName + " " + lastName + " (" + stateDistrict+")";
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", prefix='" + prefix + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", suffix='" + suffix + '\'' +
+                ", stateDistrict='" + stateDistrict + '\'' +
+                ", disclosures=" + disclosures +
+                '}';
+    }
 }
