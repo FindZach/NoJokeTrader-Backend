@@ -33,7 +33,7 @@ public class DisclosureServiceImpl implements DisclosureService {
 
     @Override
     public Optional<Disclosure> findById(Long aLong) {
-        return Optional.empty();
+        return repository.findById(aLong);
     }
 
     @Override
@@ -43,12 +43,12 @@ public class DisclosureServiceImpl implements DisclosureService {
 
     @Override
     public Iterable<Disclosure> findAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override
     public Iterable<Disclosure> findAllById(Iterable<Long> longs) {
-        return null;
+        return repository.findAllById(longs);
     }
 
     @Override

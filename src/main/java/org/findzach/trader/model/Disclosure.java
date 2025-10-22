@@ -125,6 +125,14 @@ public class Disclosure {
         this.url = url;
     }
 
+    public int getFilingYear() {
+        return filingYear;
+    }
+
+    public void setFilingYear(int filingYear) {
+        this.filingYear = filingYear;
+    }
+
     public List<Transaction> getTransactions() {
         return transactions;
     }

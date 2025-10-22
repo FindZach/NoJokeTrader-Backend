@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disclosure Overview</title>
+  <!-- Import CSS -->
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<div th:insert="~{fragments/navbar :: navbar}"></div>
+
+<div class="container">
+  <!-- Table for Disclosures -->
+  <h2>Disclosure Details</h2>
+  <table id="disclosuresTable" class="display" style="width:100%">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Filing Type</th>
+      <th>Filing Year</th>
+      <th>Filing Date</th>
+      <th>Filer Status</th>
+      <th>Transaction Count</th>
+      <th>Document</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="disclosure : ${disclosures}">
+      <!-- Disclosure ID -->
+      <td th:text="${disclosure.getId()}"></td>
+
+      <!-- Member Details -->
+      <td>
+        <!-- Hyperlink to members/{id} -->
+        <a th:href="@{/members/{id}(id=${disclosure.getMember().getId()})}"
+           th:text="${disclosure.getMember().getMemberDetails()}"></a>
+      </td>
+
+      <!-- Filing Type -->
+      <td th:text="${disclosure.getFilingType()}"></td>
+
+      <!-- Filing Year -->
+      <td th:text="${disclosure.getFilingYear()}"></td>
+
+      <!-- Filing Date -->
+      <td th:text="${#dates.format(disclosure.getFilingDate(), 'MM/dd/yyyy')}"></td>
+
+      <!-- Filer Status -->
+      <td th:text="${disclosure.getFilerStatus()} ?: 'Unknown'"></td>
+
+      <!-- Transaction Count -->
+      <td th:text="${disclosure.getTransactionCount()}"></td>
+
+      <!-- Document URL -->
+      <td>
+        <!-- If URL is available, make it a clickable link -->
+        <a th:if="${disclosure.getUrl()} != null"
+           th:href="${disclosure.getUrl()}"
+           th:text="'View Document'" target="_blank"></a>
+
+        <!-- Otherwise, display "No Document" -->
+        <span th:if="${disclosure.getUrl()} == null">No Document</span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
