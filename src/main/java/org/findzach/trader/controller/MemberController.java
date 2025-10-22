@@ -3,9 +3,9 @@ package org.findzach.trader.controller;
 import org.findzach.trader.model.Disclosure;
 import org.findzach.trader.model.Member;
 import org.findzach.trader.model.Transaction;
-import org.findzach.trader.repository.DisclosureRepository;
-import org.findzach.trader.repository.TransactionRepository;
+import org.findzach.trader.service.disclosure.DisclosureService;
 import org.findzach.trader.service.member.MemberService;
+import org.findzach.trader.service.transaction.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,15 +23,16 @@ import java.util.Optional;
 @Controller
 public class MemberController {
 
-    @Autowired
-    private MemberService memberService;
+    private final MemberService memberService;
+    private final DisclosureService disclosureService;
+    private final TransactionService transactionService;
 
     @Autowired
-    private DisclosureRepository disclosureRepository;
-
-    @Autowired
-    private TransactionRepository transactionRepository;
-
+    public MemberController(MemberService memberService, DisclosureService disclosureService, TransactionService transactionService) {
+        this.memberService = memberService;
+        this.disclosureService = disclosureService;
+        this.transactionService = transactionService;
+    }
 
     // Endpoint to show all members
     @GetMapping("/members")
@@ -50,12 +51,12 @@ public class MemberController {
         Optional<Member> memberOptional = memberService.findById(id);
         if (memberOptional.isPresent()) {
             Member selectedMember = memberOptional.get();
-            List<Disclosure> disclosures = disclosureRepository.findByMember_Id(selectedMember.getId());
+            List<Disclosure> disclosures = disclosureService.findByMember_Id(selectedMember.getId());
             List<Long> disclosureIds = disclosures.stream()
                     .map(Disclosure::getId).toList();
             model.addAttribute("member", selectedMember);
             model.addAttribute("disclosures", disclosures);
-            model.addAttribute("transactions", transactionRepository.findByDisclosure_IdIn(disclosureIds));
+            model.addAttribute("transactions", transactionService.findByDisclosure_IdIn(disclosureIds));
         } else {
             model.addAttribute("error", "No found member with ID " + id);
         }
@@ -72,10 +73,10 @@ public class MemberController {
     @GetMapping("/disclosures/{disclosureId}/transactions")
     public String getTransactionsByDisclosure(@PathVariable Long disclosureId, Model model) {
         // Fetch the disclosure
-        Optional<Disclosure> disclosure = disclosureRepository.findById(disclosureId);
+        Optional<Disclosure> disclosure = disclosureService.findById(disclosureId);
 
         // Fetch transactions associated with the disclosure
-        List<Transaction> transactions = transactionRepository.findByDisclosure_Id(disclosureId);
+        List<Transaction> transactions = transactionService.findByDisclosure_Id(disclosureId);
 
         // Add data to the model
         model.addAttribute("disclosure", disclosure.get());
