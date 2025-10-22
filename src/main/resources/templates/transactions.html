@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transactions Overview</title>
+  <!-- Import CSS -->
+  <link rel="stylesheet" href="/css/styles.css">
+
+  <style>
+    .container {
+      width: 90%;
+      margin: 0 auto;
+      font-family: Arial, sans-serif;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Disclosure Header Information -->
+  <h1>Transactions Overview for Disclosure: <span th:text="${disclosure.getId()}"></span></h1>
+  <p>
+    <strong>Filing Type:</strong> <span th:text="${disclosure.getFilingType()}"></span><br/>
+    <strong>Filing Date:</strong> <span th:text="${disclosure.getFilingDate()}"></span>
+  </p>
+
+  <!-- Table for Transactions -->
+  <h2>Transaction Details</h2>
+  <table id="transactionsTable" class="display" style="width:100%">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Asset Ticker</th>
+      <th>Amount Range</th>
+      <th>Transaction Type</th>
+      <th>Transaction Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="transaction : ${transactions}">
+      <td th:text="${transaction.getId()}"></td>
+      <td th:text="${transaction.getAsset()}"></td>
+      <td th:text="${transaction.getAmountRange()}"></td>
+      <td th:text="${transaction.getTransactionType()}"></td>
+      <td th:text="${#dates.format(transaction.getTransactionDate(), 'MM/dd/yyyy')}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

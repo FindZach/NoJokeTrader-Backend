@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Member Details</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <!-- Member Details -->
+    <h1 th:text="${member.getFirstName()} + ' ' + ${member.getLastName()}"></h1>
+    <p th:text="'State/District: ' + ${member.getStateDistrict()}"></p>
+
+    <!-- Disclosure Table -->
+    <h2>Disclosures</h2>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Filing Type</th>
+            <th>Filing Year</th>
+            <th>Details</th>
+            <th>Transactions</th> <!-- New Column -->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="disclosure : ${disclosures}">
+            <td th:text="${disclosure.getId()}"></td>
+            <td th:text="${disclosure.getFilingType()}"></td>
+            <td th:text="${disclosure.getFilingDate()}"></td>
+            <td>
+                <a th:href="${disclosure.getUrl()}" target="_blank">View</a>
+            </td>
+            <td>
+                <!-- Link to Transactions page for this disclosure -->
+                <a th:href="'/disclosures/' + ${disclosure.getId()} + '/transactions'">
+                    View Transactions
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

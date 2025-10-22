@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Members</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Members</h1>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>State/District</th>
+            <th>Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="member : ${members}">
+            <td th:text="${member.id}"></td>
+            <td th:text="${member.firstName} + ' ' + ${member.lastName}"></td>
+            <td th:text="${member.stateDistrict}"></td>
+            <td>
+                <a th:href="@{/members/{id}(id=${member.id})}">View Details</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<script>
+    document.querySelectorAll('.view-details-link').forEach(link => {
+        link.addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            const memberId = e.target.dataset.id; // Assuming data-id contains the member ID
+            const response = await fetch(`/api/members/${memberId}/disclosures`);
+            const disclosures = await response.json();
+
+            const tbody = document.querySelector('#disclosures-tbody');
+            tbody.innerHTML = ''; // Clear existing content
+
+            disclosures.forEach(disclosure => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <td>${disclosure.id}</td>
+                <td>${disclosure.filingType}</td>
+                <td>${disclosure.filingYear}</td>
+            `;
+                tbody.appendChild(row);
+            });
+        });
+    });
+</script>
+</html>
