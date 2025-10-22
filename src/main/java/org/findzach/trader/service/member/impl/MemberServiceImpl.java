@@ -1,8 +1,8 @@
-package org.findzach.trader.service.impl;
+package org.findzach.trader.service.member.impl;
 
 import org.findzach.trader.model.Member;
 import org.findzach.trader.repository.MemberRepository;
-import org.findzach.trader.service.MemberService;
+import org.findzach.trader.service.member.MemberService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,7 +43,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Optional<Member> findById(Long aLong) {
-        return Optional.empty();
+        return repository.findById(aLong);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Iterable<Member> findAllById(Iterable<Long> longs) {
-        return null;
+        return repository.findAllById(longs);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void deleteById(Long aLong) {
-
+        deleteById(aLong);
     }
 
     @Override

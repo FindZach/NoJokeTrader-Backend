@@ -1,4 +1,4 @@
-package org.findzach.trader.service;
+package org.findzach.trader.service.member;
 
 import org.findzach.trader.model.Member;
 import org.springframework.data.repository.CrudRepository;

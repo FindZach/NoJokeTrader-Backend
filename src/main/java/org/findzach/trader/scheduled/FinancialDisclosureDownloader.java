@@ -12,7 +12,7 @@ import org.findzach.trader.model.Transaction;
 import org.findzach.trader.model.xml.DisclosureMember;
 import org.findzach.trader.model.xml.FinancialDisclosure;
 import org.findzach.trader.repository.DisclosureRepository;
-import org.findzach.trader.service.MemberService;
+import org.findzach.trader.service.member.MemberService;
 import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -133,6 +133,8 @@ public class FinancialDisclosureDownloader {
         }
     }
 
+    public static int counter = 0;
+
     protected void processXml() throws Exception {
         Path xmlPath = Paths.get(EXTRACT_DIR, XML_FILE_NAME);
         if (!Files.exists(xmlPath)) {
@@ -147,7 +149,10 @@ public class FinancialDisclosureDownloader {
         if (financialDisclosure.getMembers() != null) {
             log.info("Processing {} members from XML.", financialDisclosure.getMembers().size());
             for (DisclosureMember entry : financialDisclosure.getMembers()) {
+                if (counter > 20) break;
+
                 processMember(entry);
+                counter++;
             }
         } else {
             log.warn("No members found in XML.");
