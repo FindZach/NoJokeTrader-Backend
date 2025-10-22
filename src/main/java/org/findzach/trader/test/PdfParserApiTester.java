@@ -1,5 +1,6 @@
 package org.findzach.trader.test;
 
+import org.findzach.trader.scheduled.FinancialDisclosureDownloader;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -24,15 +25,19 @@ public class PdfParserApiTester implements CommandLineRunner {
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
 
-    public PdfParserApiTester() {
+    private final FinancialDisclosureDownloader financialDisclosureDownloader;
+
+    public PdfParserApiTester(FinancialDisclosureDownloader financialDisclosureDownloader) {
         this.restTemplate = new RestTemplate();
         this.objectMapper = new ObjectMapper();
+
+        this.financialDisclosureDownloader = financialDisclosureDownloader;
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         // Replace with your Python API URL (could be localhost:5000 for local testing or your EasyPanel URL)
-        String apiBaseUrl = "http://localhost:5000";
+        String apiBaseUrl = "https://scanner.nojoke.dev";
 
         System.out.println("Testing PDF Parser API...");
 
@@ -41,6 +46,9 @@ public class PdfParserApiTester implements CommandLineRunner {
 
         // Test 2: Parse PDF from URL
         testParseFromUrl(apiBaseUrl);
+
+        System.out.println("=== Starting Financial Disclosure Downloader ===");
+        financialDisclosureDownloader.downloadAndExtractDaily();
 
         // Test 3: Parse from test endpoint
        // testParseFromTest(apiBaseUrl);
