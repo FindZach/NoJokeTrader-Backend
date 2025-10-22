@@ -4,14 +4,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Members</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <!-- jQuery (Required by DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 </head>
 <body>
 
 <div th:insert="~{fragments/navbar :: navbar}"></div>
 
 <div class="container">
-    <h1>Members</h1>
-    <table border="1">
+    <h1>List of Congress members</h1>
+    <table border="1" id="membersTable">
         <thead>
         <tr>
             <th>ID</th>
@@ -34,27 +42,6 @@
 </div>
 </body>
 <script>
-    document.querySelectorAll('.view-details-link').forEach(link => {
-        link.addEventListener('click', async (e) => {
-            e.preventDefault();
-
-            const memberId = e.target.dataset.id; // Assuming data-id contains the member ID
-            const response = await fetch(`/api/members/${memberId}/disclosures`);
-            const disclosures = await response.json();
-
-            const tbody = document.querySelector('#disclosures-tbody');
-            tbody.innerHTML = ''; // Clear existing content
-
-            disclosures.forEach(disclosure => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                <td>${disclosure.id}</td>
-                <td>${disclosure.filingType}</td>
-                <td>${disclosure.filingYear}</td>
-            `;
-                tbody.appendChild(row);
-            });
-        });
-    });
+    let table = new DataTable('#membersTable');
 </script>
 </html>

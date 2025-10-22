@@ -3,6 +3,14 @@
 <head>
     <title>Member Details</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <!-- jQuery (Required by DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 </head>
 <body>
 
@@ -15,7 +23,7 @@
 
     <!-- Disclosure Table -->
     <h2>Disclosures</h2>
-    <table border="1">
+    <table border="1" id="membersDetails">
         <thead>
         <tr>
             <th>ID</th>
@@ -43,5 +51,8 @@
         </tbody>
     </table>
 </div>
+<script>
+    let table = new DataTable('#membersDetails');
+</script>
 </body>
 </html>

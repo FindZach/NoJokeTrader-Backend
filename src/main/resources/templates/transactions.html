@@ -6,6 +6,14 @@
   <title>Transactions Overview</title>
   <!-- Import CSS -->
   <link rel="stylesheet" href="/css/styles.css">
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+  <!-- jQuery (Required by DataTables) -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+  <!-- DataTables JS -->
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 </head>
 <body>
 
@@ -18,7 +26,7 @@
   <table id="transactionsTable" class="display" style="width:100%">
     <thead>
     <tr>
-      <th>ID</th>
+      <th>Congress member</th>
       <th>Asset Ticker</th>
       <th>Amount Range</th>
       <th>Transaction Type</th>
@@ -27,7 +35,12 @@
     </thead>
     <tbody>
     <tr th:each="transaction : ${transactions}">
-      <td th:text="${transaction.getId()}"></td>
+      <!-- Member Details -->
+      <td>
+        <!-- Hyperlink to members/{id} -->
+        <a th:href="@{/members/{id}(id=${transaction.getDisclosure().getMember().getId()})}"
+           th:text="${transaction.getDisclosure().getMember().getMemberDetails()}"></a>
+      </td>
       <!-- Conditional Ticker Content -->
       <td>
         <!-- If Ticker is NOT "N/A", show hyperlink -->
@@ -46,5 +59,8 @@
     </tbody>
   </table>
 </div>
+<script>
+  let table = new DataTable('#transactionsTable');
+</script>
 </body>
 </html>

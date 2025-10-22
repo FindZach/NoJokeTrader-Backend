@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transactions for Ticker</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <!-- jQuery (Required by DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
 </head>
 <body>
 
@@ -22,7 +31,7 @@
 
     <!-- Transactions Table -->
     <div th:if="${!#lists.isEmpty(transactions)}">
-        <table>
+        <table id="tickerTable">
             <thead>
             <tr>
                 <th>Asset</th>
@@ -54,5 +63,8 @@
         </table>
     </div>
 </div>
+<script>
+    let table = new DataTable('#tickerTable');
+</script>
 </body>
 </html>
