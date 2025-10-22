@@ -3,6 +3,7 @@ package org.findzach.trader.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,8 +27,8 @@ public class Disclosure {
     @Column(name = "filing_type", nullable = false)
     private String filingType;
 
-    @Column(name = "year", nullable = false)
-    private int year;
+    @Column(name = "filing_year", nullable = false)
+    private int filingYear;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "filing_date")
@@ -51,9 +52,9 @@ public class Disclosure {
     // Constructors
     public Disclosure() {}
 
-    public Disclosure(String filingType, int year, Date filingDate, String docId) {
+    public Disclosure(String filingType, int filingYear, Date filingDate, String docId) {
         this.filingType = filingType;
-        this.year = year;
+        this.filingYear = filingYear;
         this.filingDate = filingDate;
         this.docId = docId;
     }
@@ -83,13 +84,6 @@ public class Disclosure {
         this.filingType = filingType;
     }
 
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
 
     public Date getFilingDate() {
         return filingDate;
