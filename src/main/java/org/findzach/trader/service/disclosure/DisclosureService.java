@@ -1,18 +1,16 @@
-package org.findzach.trader.repository;
+package org.findzach.trader.service.disclosure;
 
 import org.findzach.trader.model.Disclosure;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
  * @author Zach Smith
- * @since 10/21/2025
+ * @since 10/22/2025 3:53 AM
  */
-@Repository
-public interface DisclosureRepository extends JpaRepository<Disclosure, Long> {
+public interface DisclosureService extends CrudRepository<Disclosure, Long> {
     /**
      * Queries for Disclosure based on DocID
      * @param docId
